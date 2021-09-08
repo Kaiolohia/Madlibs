@@ -9,12 +9,11 @@ story = stories.Story(
 
 @app.route('/')
 def show_home_page():
-    
     return render_template("form.html", words=story.prompts)
 
 @app.route('/story')
 def show_story_page():
     keys = dict()
-    for i in range(len(story.prompts)):
-        keys[story.prompts[i]] = flask.request.args[story.prompts[i]]
+    for prompts in story.prompts:
+        keys[prompts] = flask.request.args[prompts]
     return render_template("story.html", story=story.generate(keys))
